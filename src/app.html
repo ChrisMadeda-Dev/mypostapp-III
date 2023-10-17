@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<meta name="viewport" content="width=device-width" />
+		%sveltekit.head%
+		<style >
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				transition: 250ms ease-in-out;
+			}
+
+			a{
+				text-decoration: none;
+				color: white;
+			}
+
+			input,
+			button {
+				outline: none;
+				border: none;
+				padding: 5px 10px;
+			}
+
+			::-webkit-scrollbar {
+				background-color: transparent;
+				border-right: 2px solid #1b1b1b;
+			}
+
+			::-webkit-scrollbar-thumb {
+				background-color: #353839;
+				border-radius: 50px;
+			}
+
+
+
+		</style>
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>
