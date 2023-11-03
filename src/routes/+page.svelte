@@ -4,8 +4,9 @@
 	import { onAuthStateChanged } from 'firebase/auth';
 
 	onMount(() => {
-		onAuthStateChanged((authUser) => {
+		onAuthStateChanged(auth,(authUser) => {
 			if (authUser) {
+				console.log(authUser)
 				window.location.href = '/home';
 			} else {
 				window.location.href = '/authenticate';
