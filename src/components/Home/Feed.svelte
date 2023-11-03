@@ -18,11 +18,21 @@
 	onMount(() => {
 		onAuthStateChanged(auth, (AuthUser) => {
 			user = AuthUser;
-			getDet(AuthUser);
+			
+			const rRef=doc(db,`users/${AuthUser.uid}`);
+			getDoc(rRef).then((snap)=>{
+			
+				//Check if user is admin
+				if(snap.data().role===1){
+					r=1
+					getDet(AuthUser);
+				}else{
+					r=0
+					getDet(AuthUser)
+				}
+			})
 		});
 
-		let uidLocal = 'uid';
-		r = parseFloat(localStorage.getItem('r'));
 	});
 
 	async function getDet(a) {
