@@ -17,6 +17,7 @@
 		});
 	});
 
+	//gets admins details
 	async function getDet(user) {
 		if (user) {
 			const userRef = doc(db, `admins/${user.uid}`);
@@ -32,6 +33,8 @@
 		}
 	}
 
+
+	//adds post
 	function addPost() {
 		if (adminId && channelId !== null) {
 			const channelRef = collection(db, `channels/${channelId}/posts`);

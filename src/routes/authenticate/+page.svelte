@@ -59,7 +59,7 @@
 					};
 
 					//Add user
-					console.log('set doc');
+					//console.log('set doc');
 					setDoc(userRef, userInfo);
 					alert('Welcome to MYPOST');
 

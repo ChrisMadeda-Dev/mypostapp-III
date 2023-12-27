@@ -29,9 +29,9 @@
 	}
 
 	.top > input {
-		height: 27px;
+		height: 30px;
 		width: 80%;
-        border-radius: 7px;
+        border-radius: 10px;
         background-color: #353839;
         color: whitesmoke;
 	}

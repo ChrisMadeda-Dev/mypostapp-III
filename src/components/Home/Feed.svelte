@@ -59,6 +59,7 @@
 		}
 	}
 
+	//gets content
 	async function getContent(id) {
 		const contentRef = collection(db, `channels/${id}/posts`);
 		const q = query(contentRef, orderBy('createdAt', 'desc'));

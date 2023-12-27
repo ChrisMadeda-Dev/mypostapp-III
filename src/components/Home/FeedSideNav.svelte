@@ -4,17 +4,41 @@
 	import { getDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
 	import { onAuthStateChanged } from 'firebase/auth';
 
+	import { userinfo } from '../../stores/store';
+
 	let r;
+	let user;
 	let userUid;
 
 	onMount(() => {
-		r = parseFloat(localStorage.getItem('r'));
-		userUid = localStorage.getItem('uid');
-
 		onAuthStateChanged(auth, (authUser) => {
 			userUid = authUser.uid;
+			getUserInfo(authUser);
 		});
 	});
+
+	//gets user data from db
+	async function getUserInfo(user) {
+		const docRef = doc(db, `users/${user.uid}`);
+		const docSnap = await getDoc(docRef);
+
+		if (docSnap.exists()) {
+			r = docSnap.data().role;
+			userinfo.set([
+				{
+					uid: docSnap.data().uid,
+					firstName: docSnap.data().firstName,
+					otherName: docSnap.data().otherName,
+					role: docSnap.data().role
+				}
+			]);
+		}
+	}
+
+	//Gets realtime data from svelte store
+	$: {
+		('');
+	}
 
 	async function addChannelId() {
 		const a = prompt('Enter Channel ID');
@@ -25,14 +49,13 @@
 			const channel = await getDoc(channelRef);
 
 			if (channel.exists()) {
-				console.log('Channel Found');
 				if (r === 0) {
 					localStorage.setItem('activeChannelId', a);
 					const userChannelRef = doc(db, `users/${userUid}`);
 					updateDoc(userChannelRef, {
 						activeChannelId: a
 					});
-					alert("Awesome! Channel has been set")
+					alert('Awesome! Channel has been set');
 				}
 			} else {
 				alert('Oops!! Channel not found');
@@ -47,7 +70,7 @@
 
 <div class="feed-side-nav">
 	<div class="top">
-		<span>HI Chris</span>
+		<span>Hi {$userinfo[0].firstName}</span>
 	</div>
 	<div class="center">
 		<button>Home</button>
@@ -80,16 +103,21 @@
 	button {
 		outline: none;
 		border: none;
-		border-radius: 5px;
+		border-radius: 10px;
 		width: 80%;
 		min-width: 80%;
-		height: 40px;
+		height: 50px;
 		background-color: #353839;
 		color: white;
+		transition: ease-in-out 0.5s;
+	}
+
+	button:hover {
+		opacity: 0.7;
 	}
 
 	.top {
-		flex: 0 0 20%;
+		flex: 0 0 10%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -97,7 +125,7 @@
 
 	.center {
 		width: 100%;
-		flex: 0 0 70%;
+		flex: 0 0 80%;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
