@@ -1,5 +1,6 @@
 <script>
 	export let feedContent;
+	console.log(feedContent);
 </script>
 
 <div class="feed-cont">

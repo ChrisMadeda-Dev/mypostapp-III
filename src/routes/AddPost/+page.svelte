@@ -9,6 +9,7 @@
 	let post;
 	let channelId;
 	let adminId;
+	let channelName;
 
 	onMount(() => {
 		onAuthStateChanged(auth, (a) => {
@@ -25,6 +26,7 @@
 
 			if (det.exists()) {
 				channelId = det.data().channelId;
+				channelName = det.data().firstName;
 			} else {
 				console.log('Doc doesnt exist');
 			}
@@ -32,7 +34,6 @@
 			console.log('no user');
 		}
 	}
-
 
 	//adds post
 	function addPost() {
@@ -42,6 +43,7 @@
 				const postOut = {
 					post: post,
 					channelId: channelId,
+					channelName: channelName,
 					adminId: adminId,
 					createdAt: serverTimestamp()
 				};
